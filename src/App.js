@@ -7,9 +7,15 @@ function App() {
     <>
       <Navbar color="info" expand="md">
         <Nav navbar>
-          <NavbarBrand href="/">📖 Loncotes County Library</NavbarBrand>
+          <NavbarBrand href="/materials">📖 Loncotes County Library</NavbarBrand>
           <NavItem>
             <NavLink href="/materials">Materials</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/patrons">Patrons</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/checkouts">Checkouts</NavLink>
           </NavItem>
         </Nav>
       </Navbar>

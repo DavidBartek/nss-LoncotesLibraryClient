@@ -4,9 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MaterialList from "./components/tickets/MaterialList";
-import MaterialDetails from "./components/tickets/MaterialDetails";
-import CreateMaterial from "./components/tickets/CreateMaterial";
+import MaterialList from "./components/materials/MaterialList";
+import MaterialDetails from "./components/materials/MaterialDetails";
+import CreateMaterial from "./components/materials/CreateMaterial";
+import PatronList from "./components/patrons/PatronList";
+import EditPatron from "./components/patrons/EditPatron";
+import CheckoutsList from "./components/checkouts/CheckoutsList";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +20,13 @@ root.render(
           <Route index element={<MaterialList />} />
           <Route path=":id" element={<MaterialDetails />} />
           <Route path="create" element={<CreateMaterial />} />
+        </Route>
+        <Route path="patrons">
+          <Route index element={<PatronList />} />
+          <Route path=":id" element={<EditPatron />} />
+        </Route>
+        <Route path="checkouts">
+          <Route index element={<CheckoutsList />} />
         </Route>
       </Route>
     </Routes>
