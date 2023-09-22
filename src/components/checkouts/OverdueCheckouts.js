@@ -29,7 +29,6 @@ export default function OverdueCheckouts () {
                         <th>Title</th>
                         <th>Type</th>
                         <th>Patron</th>
-                        <th>Was due on</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +38,6 @@ export default function OverdueCheckouts () {
                             <th>{co.material.materialName}</th>
                             <th>{co.material.materialType.name}</th>
                             <th>{co.patron.firstName} {co.patron.lastName}</th>
-                            <th>{co.checkoutDate + co.material.materialType.checkoutDays}</th>
                         </tr>
                     })}
                 </tbody>
