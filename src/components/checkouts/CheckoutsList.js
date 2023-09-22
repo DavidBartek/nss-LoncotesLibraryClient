@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getCheckouts } from "../../data/checkoutsData";
-import { Table } from "reactstrap";
+import { getCheckouts, returnCheckout } from "../../data/checkoutsData";
+import { Button, Table } from "reactstrap";
 
 export default function CheckoutsList () {
     const [checkouts, setCheckouts] = useState([]);
@@ -14,8 +14,20 @@ export default function CheckoutsList () {
     }, [])
 
     const formatDateTime = (dateTimeString) => {
-        const formattedDate = dateTimeString // conversion logic here
+        const date = new Date(dateTimeString);
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        const formattedDate = `${month}/${day}/${year}`;
         return formattedDate;
+    }
+
+    const handleReturn = (e, checkoutId) => {
+        e.preventDefault();
+        returnCheckout(checkoutId)
+            .then(() => renderList());
     }
 
     if (!checkouts) {
@@ -31,12 +43,11 @@ export default function CheckoutsList () {
                     <tr>
                         <th>Id</th>
                         <th>Item</th>
-                        <th></th>
                         <th>Patron</th>
                         <th>Checked out on</th>
                         <th>Returned on</th>
-                        <th>Late status</th>
                         <th>Late fee status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,11 +55,14 @@ export default function CheckoutsList () {
                         return <tr key={`checkout-${co.id}`}>
                             <th scope="row">{co.id}</th>
                             <td>{co.material.materialName}</td>
-                            <td>Check in logic here</td>
                             <td>{co.material.materialType.name}</td>
-                            <td>{co.checkoutDate} apply conversion logic here</td>
-                            <td>{co.returnDate ? co.returnDate + "apply conversion logic" : "Not yet returned"}</td>
-                            <td>finish table</td>
+                            <td>{formatDateTime(co.checkoutDate)}</td>
+                            <td>{co.returnDate ? formatDateTime(co.returnDate) : "Not yet returned"}</td>
+                            <td>{co.lateFee ? "$" + co.lateFee : "N/A"}</td>
+                            <td>{co.returnDate ? "" : 
+                                <Button color="info" onClick={(e) => handleReturn(e, co.id)}>Return</Button>
+                                }
+                            </td>
                         </tr>
                     })}
                 </tbody>

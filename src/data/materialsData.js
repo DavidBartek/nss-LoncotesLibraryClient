@@ -9,11 +9,15 @@ export const getMaterial = (id) => {
   return fetch(`${_apiUrl}/${id}`).then((r) => r.json());
 };
 
+export const getAvailableMaterials = () => {
+  return fetch(`${_apiUrl}/available`).then((r) => r.json());
+};
+
 export const createMaterial = (material) => {
   return fetch(_apiUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(material),
+    body: JSON.stringify(material)
   }).then((res) => res.json());
 };
 
